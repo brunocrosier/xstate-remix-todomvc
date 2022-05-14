@@ -9,7 +9,6 @@ import { Todo } from "~/components/todo";
 import { createTodoMachine } from "~/machines/todo/createTodoMachine";
 import type { Todo as TodoType } from "~/machines/todos/todosMachine";
 import { todosMachine } from "~/machines/todos/todosMachine";
-import Cookies from "js-cookie";
 
 export async function loader({ request }: { request: Request }) {
   const cookieHeader = request.headers.get("Cookie");
@@ -26,7 +25,9 @@ export async function loader({ request }: { request: Request }) {
 
   //   return json({ persistedTodos: decodeURI(persistedTodos) });
 
-  return json({ persistedTodos: JSON.parse(cookieHeader?.split("=")[1]) });
+  return json({
+    persistedTodos: JSON.parse((cookieHeader || "").split("=")[1]),
+  });
 }
 
 export default function Todos() {
