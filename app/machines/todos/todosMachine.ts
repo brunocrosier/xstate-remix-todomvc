@@ -1,5 +1,4 @@
-import { nanoid } from "nanoid";
-import { ActorRefWithDeprecatedState, assign } from "xstate";
+import type { ActorRefWithDeprecatedState } from "xstate";
 import { createMachine } from "xstate";
 
 export type TodoStatus = "Active" | "Completed";
