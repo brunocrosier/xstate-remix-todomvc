@@ -26,7 +26,7 @@ export async function loader({ request }: { request: Request }) {
   //   return json({ persistedTodos: decodeURI(persistedTodos) });
 
   return json({
-    persistedTodos: JSON.parse((cookieHeader || "").split("=")[1]),
+    persistedTodos: cookieHeader ? JSON.parse(cookieHeader.split("=")[1]) : [],
   });
 }
 
@@ -99,7 +99,7 @@ export default function Todos() {
         }
       },
     },
-    devTools: true,
+    devTools: process.env.NODE_ENV !== "production",
   });
 
   const activeTodosCount = todos.filter(
