@@ -14,10 +14,16 @@ import {
 } from "@remix-run/react";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
+import todoMVCStylesheetUrl from "./styles/todomvc.css";
+
 import { getUser } from "./session.server";
+import { inspect } from "@xstate/inspect";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
+  return [
+    // { rel: "stylesheet", href: tailwindStylesheetUrl },
+    { rel: "stylesheet", href: todoMVCStylesheetUrl },
+  ];
 };
 
 export const meta: MetaFunction = () => ({
@@ -35,6 +41,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     user: await getUser(request),
   });
 };
+
+if (typeof window !== "undefined") {
+  inspect({
+    iframe: false,
+  });
+}
 
 export default function App() {
   return (
